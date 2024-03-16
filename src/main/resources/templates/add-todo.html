@@ -10,7 +10,7 @@
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Add New Todo</h1>
-    <form th:action="@{/todo/add}" method="post">
+    <form th:action="@{/todo/add-todo}" method="post">
         <div class="form-group">
             <label for="task">Task:</label>
             <input type="text" class="form-control" id="task" name="task">
@@ -18,6 +18,13 @@
         <div class="form-group">
             <label for="description">Description:</label>
             <input type="text" class="form-control" id="description" name="description">
+        </div>
+        <div class="from-group">
+            <label for="isDone">Is Done:</label>
+            <select id="isDone" name="isDone" class="form-control">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

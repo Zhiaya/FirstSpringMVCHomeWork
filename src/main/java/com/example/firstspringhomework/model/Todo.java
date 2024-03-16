@@ -6,24 +6,19 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class Todo {
+
     private int id;
     private String task;
     private String description;
-    private boolean isDone;
+    private String isDone;
     private LocalDateTime createdAt;
 
-
-    public void setIsDone(boolean isDone) {
-        this.isDone = isDone;
+    public Todo() {
+        int nextId = 0;
+        this.id = ++nextId;
     }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
 
 }
 

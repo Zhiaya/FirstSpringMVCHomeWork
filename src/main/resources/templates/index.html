@@ -13,8 +13,7 @@
         }
 
         .container {
-            background-color: #fff;
-            border: 2px solid yellow;
+            background-color: yellow;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -68,21 +67,10 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     <h1 class="text-center mb-4">To-Do List</h1>
-
-    <!-- Form to add new to-do -->
-    <form action="/todo/add" method="post" class="mb-3">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Enter task" name="task">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">Add Task</button>
-            </div>
-        </div>
-    </form>
-
-    <!-- Table to display existing to-do items -->
+    <!-- Include the add todo form -->
+    <!-- Table -->
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -90,6 +78,7 @@
             <th>Task</th>
             <th>Description</th>
             <th>Is Done</th>
+            <th>CreateAt</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -100,6 +89,7 @@
             <td th:text="${todo.task}">Task</td>
             <td th:text="${todo.description}">Description</td>
             <td th:text="${todo.isDone}">Is Done</td>
+            <td th:text="${todo.createdAt}">Create At</td>
             <td>
                 <!-- Form to delete to-do item -->
                 <form th:action="@{/todo/delete/{id}(id=${todo.id})}" method="post">
@@ -113,6 +103,7 @@
         </tr>
         </tbody>
     </table>
+    <a th:href="@{/todo/add-todo}" class="btn btn-success mt-3">Add New</a>
 </div>
 
 </body>

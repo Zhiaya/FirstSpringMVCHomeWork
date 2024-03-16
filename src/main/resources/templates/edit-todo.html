@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Todo</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Edit Todo</h1>
-    <form th:action="@{'/todo/edit/' + ${todo.id}}" method="post">
+<div class="container">
+    <h1 class="text-center">Edit Todo</h1>
+    <form action="#" th:action="@{/todo/edit/{id}(id=${todo.id})}" th:object="${todo}" method="post">
+        <input type="hidden" th:field="*{id}">
         <div class="form-group">
             <label for="task">Task:</label>
-            <input type="text" class="form-control" id="task" name="task" th:value="${todo.task}">
+            <input type="text" class="form-control" id="task" th:field="*{task}" placeholder="Enter task">
         </div>
         <div class="form-group">
             <label for="description">Description:</label>
-            <input type="text" class="form-control" id="description" name="description" th:value="${todo.description}">
+            <input type="text" class="form-control" id="description" th:field="*{description}" placeholder="Enter description">
+        </div>
+        <div class="form-group">
+            <label for="isDone">Is Done?</label>
+            <select class="form-control" id="isDone" th:field="*{isDone}">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

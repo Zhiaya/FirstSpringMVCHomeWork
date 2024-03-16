@@ -17,6 +17,11 @@ public interface TodoService {
 
     void addTodo(Todo todo);
 
+    //    Search for a todo by task and isDone
+    List<Todo> searchTodoByTask(String task);
+
+    List<Todo> searchTodoByIsDone(String isDone);
+
     void updateTodo(int id, Todo todoDetails);
 
     void deleteTodoById(int id);
