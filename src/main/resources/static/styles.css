@@ -1,0 +1,20 @@
+body {
+    background-color: lightskyblue;
+    & h1 {
+        text-align: center;
+        color: deeppink;
+    }
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    width: 50%;
+    color: deeppink;
+    margin: 0 auto;
+    display: table;
+    & th {
+        padding: 10px;
+        text-align: center;
+    }
+}

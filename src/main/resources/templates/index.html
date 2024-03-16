@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom table styles */
+        body {
+            background-color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: #fff;
+            border: 2px solid yellow;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .form-control {
+            border-color: #ddd;
+        }
+
+        .table {
+            background-color: #fff;
+        }
+
+        .table th {
+            background-color: yellow;
+            color: #333;
+            border-color: #ddd;
+        }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #ddd;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: yellow;
+            border-color: yellow;
+            color: #333;
+        }
+
+        .btn-primary:hover {
+            background-color: #f3f3f3;
+            border-color: #f3f3f3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center mb-4">To-Do List</h1>
+
+    <!-- Form to add new to-do -->
+    <form action="/todo/add" method="post" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter task" name="task">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Add Task</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Table to display existing to-do items -->
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Task</th>
+            <th>Description</th>
+            <th>Is Done</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over each to-do item -->
+        <tr th:each="todo : ${todos}">
+            <td th:text="${todo.id}">ID</td>
+            <td th:text="${todo.task}">Task</td>
+            <td th:text="${todo.description}">Description</td>
+            <td th:text="${todo.isDone}">Is Done</td>
+            <td>
+                <!-- Form to delete to-do item -->
+                <form th:action="@{/todo/delete/{id}(id=${todo.id})}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <!-- Form to edit to-do item -->
+                <form th:action="@{/todo/edit/{id}(id=${todo.id})}" method="get">
+                    <button type="submit" class="btn btn-secondary">Edit</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
