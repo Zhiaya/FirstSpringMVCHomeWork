@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @Controller
 public class TodoController {
@@ -54,12 +57,20 @@ public class TodoController {
         return "redirect:/";
     }
 
-//    @GetMapping("/todo/search")
-//    public String searchTodo(@RequestParam("task") String task, @RequestParam("isDone") boolean isDone, Model model) {
-//        List<Todo> todos = todoListService.searchTodoByTaskAndIsDone(task, String.valueOf(isDone));
-//        model.addAttribute("todos", todos);
-//        return "todo";
-//    }
-
+    @GetMapping("/todo/search")
+    public String searchTodos(@RequestParam(required = false) String task,
+                              @RequestParam(required = false) String isDone,
+                              Model model) {
+        List<Todo> todos;
+        if (task != null && !task.isEmpty()) {
+            todos = todoListService.searchTodoByTask(task);
+        } else if (isDone != null && !isDone.isEmpty()) {
+            todos = todoListService.searchTodoByIsDone(isDone);
+        } else {
+            todos = new ArrayList<>();
+        }
+        model.addAttribute("todos", todos);
+        return "searchResults"; // Ensure this matches the name of your search results view
+    }
 
 }

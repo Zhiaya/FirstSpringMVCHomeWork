@@ -9,20 +9,17 @@ import java.util.stream.Collectors;
 public interface TodoService {
     List<Todo> getAllTodos();
 
-//    List<Todo> searchTodoByTask(String task);
-
-//    List<Todo> searchTodoByTaskAndIsDone(String task, String isDone);
+    List<Todo> searchTodoByTask(String task);
 
     Todo getTodoById(int id);
 
     void addTodo(Todo todo);
-
-    //    Search for a todo by task and isDone
-    List<Todo> searchTodoByTask(String task);
 
     List<Todo> searchTodoByIsDone(String isDone);
 
     void updateTodo(int id, Todo todoDetails);
 
     void deleteTodoById(int id);
+
+
 }

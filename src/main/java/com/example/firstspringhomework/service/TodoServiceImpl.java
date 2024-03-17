@@ -6,17 +6,17 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Locale;
 
 @Service
 public class TodoServiceImpl implements TodoService {
     private List<Todo> todos = new ArrayList<>();
+    TodoService todoService;
 
     public TodoServiceImpl() {
-        int nextId = 0;
-        todos.add(new Todo(++nextId, "Learn Spring MVC", "Study Spring MVC framework","Yes", LocalDateTime.now()));
-        todos.add(new Todo(++nextId, "Build a REST API", "Create a RESTful API using Spring Boot","No", LocalDateTime.now()));
-        todos.add(new Todo(++nextId, "Deploy Application", "Deploy the application to a cloud provider","Yes", LocalDateTime.now()));
+        todos.add(new Todo(1, "Learn Spring MVC", "Study Spring MVC framework","Yes", LocalDateTime.now()));
+        todos.add(new Todo(2, "Build a REST API", "Create a RESTful API using Spring Boot","No", LocalDateTime.now()));
+        todos.add(new Todo(3, "Deploy Application", "Deploy the application to a cloud provider","Yes", LocalDateTime.now()));
     }
 
     @Override
@@ -35,38 +35,10 @@ public class TodoServiceImpl implements TodoService {
     }
     @Override
     public void addTodo(Todo todo) {
-        // Find the highest id currently in use
         int maxId = todos.stream().mapToInt(Todo::getId).max().orElse(0);
-        // Assign the next available id to the new todo
         todo.setId(maxId + 1);
-        // Add the new todo to the list
         todos.add(todo);
     }
-
-
-    //    Search for a todo by task
-    @Override
-    public List<Todo> searchTodoByTask(String task) {
-        List<Todo> results = new ArrayList<>();
-        for (Todo todo : todos) {
-            if (todo.getTask().equalsIgnoreCase(task)) {
-                results.add(todo);
-            }
-        }
-        return results;
-    }
-//    Search for a todo by task and isDone
-    @Override
-    public List<Todo> searchTodoByIsDone(String isDone) {
-        List<Todo> results = new ArrayList<>();
-        for (Todo todo : todos) {
-            if (todo.getIsDone().equalsIgnoreCase(isDone)) {
-                results.add(todo);
-            }
-        }
-        return results;
-    }
-
     @Override
     public void updateTodo(int id, Todo todoDetails) {
         for (int i = 0; i < todos.size(); i++) {
@@ -82,8 +54,19 @@ public class TodoServiceImpl implements TodoService {
     public void deleteTodoById(int id) {
         todos.removeIf(todo -> todo.getId() == id);
     }
+    @Override
+    public List<Todo> searchTodoByTask(String task) {
+        //ignore Upper and lower case
+        return getAllTodos().stream()
+                .filter(todo -> todo.getTask().toLowerCase(Locale.ROOT).contains(task.toLowerCase(Locale.ROOT)))
+                .toList();
 
-
-
+    }
+    @Override
+    public List<Todo> searchTodoByIsDone(String isDone) {
+        return getAllTodos().stream()
+                .filter(todo -> todo.getIsDone().toLowerCase(Locale.ROOT).contains(isDone.toLowerCase(Locale.ROOT)))
+                .toList();
+    }
 
 }

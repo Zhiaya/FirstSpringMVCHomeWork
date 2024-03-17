@@ -4,67 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
+    <link rel="stylesheet" href="/styles.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Custom table styles */
-        body {
-            background-color: #fff;
-            font-family: Arial, sans-serif;
-        }
 
-        .container {
-            background-color: yellow;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
-
-        .form-control {
-            border-color: #ddd;
-        }
-
-        .table {
-            background-color: #fff;
-        }
-
-        .table th {
-            background-color: yellow;
-            color: #333;
-            border-color: #ddd;
-        }
-
-        .table-bordered th, .table-bordered td {
-            border: 1px solid #ddd;
-        }
-
-        .btn {
-            padding: 6px 12px;
-            font-size: 14px;
-        }
-
-        .btn-primary {
-            background-color: yellow;
-            border-color: yellow;
-            color: #333;
-        }
-
-        .btn-primary:hover {
-            background-color: #f3f3f3;
-            border-color: #f3f3f3;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            border-color: #dc3545;
-        }
-
-        .btn-danger:hover {
-            background-color: #c82333;
-            border-color: #bd2130;
-        }
-
-    </style>
 </head>
 <body>
 <div class="container">
@@ -90,20 +32,38 @@
             <td th:text="${todo.description}">Description</td>
             <td th:text="${todo.isDone}">Is Done</td>
             <td th:text="${todo.createdAt}">Create At</td>
-            <td>
+            <td style="display: inline-flex; gap: 5px">
                 <!-- Form to delete to-do item -->
                 <form th:action="@{/todo/delete/{id}(id=${todo.id})}" method="post">
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger" style="align-items: center">Delete</button>
                 </form>
                 <!-- Form to edit to-do item -->
                 <form th:action="@{/todo/edit/{id}(id=${todo.id})}" method="get">
-                    <button type="submit" class="btn btn-secondary">Edit</button>
+                    <button type="submit" class="btn btn-secondary" style="align-items: center">Edit</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
-    <a th:href="@{/todo/add-todo}" class="btn btn-success mt-3">Add New</a>
+    <a th:href="@{/todo/add-todo}" class="btn btn-success mt-3" style="background-color: deepskyblue; margin-bottom: 5px">Add New</a>
+    <!-- Search by Task -->
+    <form action="/todo/search" method="get">
+        <div class="form-group" style="display: inline-flex; gap: 5px">
+<!--            <label for="searchTask">Search by Task:</label>-->
+            <input type="text" id="searchTask" name="task" class="form-control" placeholder="Enter task name"  style=" width: 200px;">
+            <button type="submit" class="btn btn-primary" style="background-color: deepskyblue; ">Search</button>
+        </div>
+
+    </form>
+    <!-- Search by Is Done -->
+    <form action="/todo/search" method="get" class="mt-3">
+        <div class="form-group" style="display: inline-flex; gap: 5px">
+<!--            <label for="searchIsDone">Search by Is Done:</label>-->
+            <input type="text" id="searchIsDone" name="isDone" class="form-control" placeholder="Enter isDone" style=" width: 200px;">
+            <button type="submit" class="btn btn-primary" style="background-color: deepskyblue; " >Search</button>
+        </div>
+
+    </form>
 </div>
 
 </body>

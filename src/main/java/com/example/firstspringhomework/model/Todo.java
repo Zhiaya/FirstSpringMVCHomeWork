@@ -6,19 +6,14 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Todo {
-
     private int id;
     private String task;
     private String description;
     private String isDone;
     private LocalDateTime createdAt;
-
-    public Todo() {
-        int nextId = 0;
-        this.id = ++nextId;
-    }
 
 }
 
